@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-display: 'Syne', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-arun-forest: #0A231C;
+  --color-arun-deep: #07131D;
+  --color-arun-night: #0B1E2E;
+  --color-arun-pine: #113D30;
+  --color-arun-terracotta: #C2593F;
+  --color-arun-terracotta-dark: #A3432B;
+  --color-arun-sand: #E8DCC9;
+  --color-arun-bamboo: #DFCEB4;
+  --color-arun-gold: #E5A93C;
+  --color-arun-gold-light: #F3BA54;
+  --color-arun-sunrise: #F97316;
+  --color-arun-red: #B91C1C;
+  --color-arun-mist: #EEF3F0;
+  --color-arun-mist-dim: #98A7A0;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background-color: #07131D;
+  color: #EEF3F0;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom editorial headings */
+.font-editorial {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-display {
+  font-family: 'Syne', sans-serif;
+}
+
+.font-data {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #07131D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1A342B;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E5A93C;
+}
+
+/* Hide scrollbar for clean horizontal carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Topographic contour background pattern */
+.topo-pattern {
+  background-image: radial-gradient(rgba(229, 169, 60, 0.08) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Glassmorphism card */
+.glass-panel {
+  background: rgba(11, 30, 46, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(238, 243, 240, 0.08);
+}
+
+.glass-panel-warm {
+  background: rgba(16, 43, 35, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(229, 169, 60, 0.15);
+}
+
+/* Subtle glow */
+.glow-pin {
+  box-shadow: 0 0 15px rgba(229, 169, 60, 0.6);
+}
+
