@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { DESTINATIONS } from '../../data/destinations';
 import { Destination } from '../../types';
 import { DestinationDrawer } from './DestinationDrawer';
-import { MapPin, Compass, ZoomIn, ZoomOut, RefreshCw, Filter, Layers, Info } from 'lucide-react';
+import { MountainRelief3D } from '../3d/MountainRelief3D';
+import { MapPin, Compass, ZoomIn, ZoomOut, RefreshCw, Filter, Layers, Info, Box } from 'lucide-react';
 
 export const ArunachalMap: React.FC<{ onPlanTripForDestination: (dest: Destination) => void }> = ({ onPlanTripForDestination }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const [activeZone, setActiveZone] = useState<string | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(1);
+  const [viewMode, setViewMode] = useState<'2d' | '3d'>('2d');
 
   const filteredDestinations = selectedCategory === 'all'
     ? DESTINATIONS
@@ -28,14 +30,44 @@ export const ArunachalMap: React.FC<{ onPlanTripForDestination: (dest: Destinati
         {/* Section Header */}
         <div className='flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4'>
           <div>
-            <div className='inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E5A93C]/10 border border-[#E5A93C]/20 text-[#F3BA54] font-mono text-[11px] uppercase tracking-widest mb-3'>
-              <Compass className='w-3.5 h-3.5' /> Artistic Topographic Atlas
+            <div className='flex items-center gap-2 mb-3'>
+              <div className='inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E5A93C]/10 border border-[#E5A93C]/20 text-[#F3BA54] font-mono text-[11px] uppercase tracking-widest'>
+                <Compass className='w-3.5 h-3.5' /> Artistic Topographic Atlas
+              </div>
+
+              {/* 2D / 3D Mode Toggle Switch */}
+              <div className='flex items-center p-1 rounded-full bg-[#091824] border border-white/15 shadow-inner'>
+                <button
+                  onClick={() => setViewMode('2d')}
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+                    viewMode === '2d'
+                      ? 'bg-[#E5A93C] text-[#07131D] font-bold shadow-md'
+                      : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  2D Topo
+                </button>
+                <button
+                  onClick={() => setViewMode('3d')}
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-all flex items-center gap-1.5 ${
+                    viewMode === '3d'
+                      ? 'bg-gradient-to-r from-[#E5A93C] to-[#C2593F] text-[#07131D] font-bold shadow-md'
+                      : 'text-[#E5A93C] hover:text-white'
+                  }`}
+                >
+                  <Box className='w-3.5 h-3.5' />
+                  <span>3D Relief Flight</span>
+                </button>
+              </div>
             </div>
+
             <h2 className='font-serif text-3xl sm:text-5xl font-light text-white'>
               Interactive Arunachal Map
             </h2>
             <p className='text-sm text-[#98A7A0] max-w-xl mt-2 font-light'>
-              Explore glowing coordinates across 26 districts. Click any marker to open village dossiers, tribal lineages, access routes, and responsible travel codes.
+              {viewMode === '3d'
+                ? 'Interactive 3D Himalayan topographic relief. Drag to orbit, scroll to zoom, and explore glowing 3D coordinates.'
+                : 'Explore glowing coordinates across 26 districts. Click any marker to open village dossiers, tribal lineages, access routes, and responsible travel codes.'}
             </p>
           </div>
 
@@ -59,6 +91,13 @@ export const ArunachalMap: React.FC<{ onPlanTripForDestination: (dest: Destinati
 
         {/* Map Canvas Frame */}
         <div className='relative w-full rounded-3xl bg-[#091824] border border-white/15 overflow-hidden shadow-2xl min-h-[580px] sm:min-h-[660px] flex items-center justify-center'>
+          {viewMode === '3d' ? (
+            <MountainRelief3D
+              onSelectDestination={setSelectedDestination}
+              selectedCategory={selectedCategory}
+            />
+          ) : (
+            <>
           {/* Topographic Background Contour SVG */}
           <div
             className='absolute inset-0 w-full h-full transition-transform duration-500 ease-out origin-center select-none'
@@ -242,8 +281,10 @@ export const ArunachalMap: React.FC<{ onPlanTripForDestination: (dest: Destinati
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
+    </div>
+  </div>
 
       {/* Destination Dossier Drawer */}
       <DestinationDrawer

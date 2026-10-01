@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { DESTINATIONS } from '../../data/destinations';
 import { Destination } from '../../types';
 import { useJournal } from '../../context/JournalContext';
+import { Card3DTilt } from '../3d/Card3DTilt';
 import { Mountain, MapPin, ChevronLeft, ChevronRight, Bookmark, ArrowRight } from 'lucide-react';
 
 export const BeyondTheMap: React.FC<{ onSelectDestination: (d: Destination) => void }> = ({ onSelectDestination }) => {
@@ -59,7 +60,7 @@ export const BeyondTheMap: React.FC<{ onSelectDestination: (d: Destination) => v
           {DESTINATIONS.map(dest => {
             const isSaved = isSavedDestination(dest.id);
             return (
-              <div
+              <Card3DTilt
                 key={dest.id}
                 className='w-[340px] sm:w-[400px] flex-shrink-0 snap-start rounded-3xl bg-[#091824] border border-white/15 overflow-hidden group hover:border-[#E5A93C]/50 transition-all duration-500 flex flex-col justify-between shadow-2xl relative'
               >
@@ -131,7 +132,7 @@ export const BeyondTheMap: React.FC<{ onSelectDestination: (d: Destination) => v
                     </button>
                   </div>
                 </div>
-              </div>
+              </Card3DTilt>
             );
           })}
         </div>

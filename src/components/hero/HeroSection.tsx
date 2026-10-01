@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TopoBackground } from '../ui/TopoBackground';
+import { Hero3DCanvas } from '../3d/Hero3DCanvas';
 import { Search, Compass, Sparkles, MapPin, ArrowDown, Trees, Mountain, Tent, Utensils, Feather, Flame, ShieldAlert } from 'lucide-react';
 
 interface HeroProps {
@@ -27,17 +28,20 @@ export const HeroSection: React.FC<HeroProps> = ({ onSelectCategoryFilter, onOpe
 
   return (
     <section className='relative min-h-[92vh] flex flex-col justify-between pt-28 pb-12 overflow-hidden'>
-      {/* Cinematic Background Image with Gradient Overlay */}
+      {/* 3D Living Himalayan Mountain Range & Nature Mist System */}
       <div className='absolute inset-0 z-0'>
+        {/* Soft mountain silhouette base layer */}
         <img
           src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=2000&q=85'
           alt='Arunachal Pradesh Misty Mountains and Valleys'
-          className='w-full h-full object-cover object-center scale-105 transition-transform duration-1000'
+          className='w-full h-full object-cover object-center opacity-30 mix-blend-luminosity'
         />
+        {/* Three.js 3D Interactive Mountain & Atmosphere Canvas */}
+        <Hero3DCanvas />
         {/* Multi-layered atmospheric fog and forest-deep vignettes */}
-        <div className='absolute inset-0 bg-gradient-to-t from-[#07131D] via-[#07131D]/65 to-[#07131D]/40' />
-        <div className='absolute inset-0 bg-gradient-to-r from-[#07131D]/80 via-transparent to-[#07131D]/80' />
-        <TopoBackground opacity={0.09} />
+        <div className='absolute inset-0 bg-gradient-to-t from-[#07131D] via-[#07131D]/45 to-transparent pointer-events-none' />
+        <div className='absolute inset-0 bg-gradient-to-r from-[#07131D]/90 via-[#07131D]/50 to-transparent pointer-events-none' />
+        <TopoBackground opacity={0.06} />
       </div>
 
       {/* Hero Content Container */}
